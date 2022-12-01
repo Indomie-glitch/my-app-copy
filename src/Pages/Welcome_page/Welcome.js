@@ -1,5 +1,6 @@
 import Navbar2 from "Components/Header/Navbar/Navbar2";
 import "./Welcome.css";
+import brain from "Images/brain.jpeg"
 function Welcome() {
   return (
     <div> 
@@ -8,7 +9,7 @@ function Welcome() {
     </div>
     <div className="Wrapper">
         <div className="container first">
-          
+          {/* <img className="picutre" src={brain}/> */}
           <div className="bodyText">
             <h1 id="bodyTitle"> Title </h1>
             <p>The Future of E-Learning</p>

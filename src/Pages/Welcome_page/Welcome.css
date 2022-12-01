@@ -2,6 +2,10 @@
   height: 100px;
   width: 600px;
 }
+.picture{
+  width: 100%;
+  height: auto;
+}
 .bodyText {
   border: 5px solid rgb(242, 242, 242);
   text-align: center;
