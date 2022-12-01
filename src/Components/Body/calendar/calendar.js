@@ -8,7 +8,6 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-
 const locales = {
   "en-US": require("date-fns/locale/en-US"),
 };
@@ -20,11 +19,9 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-
-
 function Calendars() {
   const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
-  const [allEvents, setAllEvents] = useState(events);
+  const [allEvents, setAllEvents] = useState();
 
   function handleAddEvent() {
     for (let i = 0; i < allEvents.length; i++) {
@@ -32,7 +29,6 @@ function Calendars() {
       const d2 = new Date(newEvent.start);
       const d3 = new Date(allEvents[i].end);
       const d4 = new Date(newEvent.end);
-
 
       if ((d1 <= d2 && d2 <= d3) || (d1 <= d4 && d4 <= d3)) {
         alert("CLASH");
@@ -45,8 +41,7 @@ function Calendars() {
 
   return (
     <div className="App">
-      <h2>Add New Event</h2>
-      <div>
+      {/* <div>
         <input
           type="text"
           placeholder="Add Title"
@@ -68,7 +63,7 @@ function Calendars() {
         <button stlye={{ marginTop: "10px" }} onClick={handleAddEvent}>
           Add Event
         </button>
-      </div>
+      </div> */}
       <Calendar
         localizer={localizer}
         events={allEvents}
