@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import HomePage from "./pages/HomePage";
-import SideBar from "./containers/SideBar";
-import { initialDecks } from "./InitialData/InitialDecks";
+import HomePage from "./HomePage";
+// import SideBar from "./containers/SideBar";
+// import { initialDecks } from "./InitialData/InitialDecks";
 
 function deck() {
   const [userDecks, setUserDecks] = useState([]);

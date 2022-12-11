@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import Navbar from "Components/Header/Navbar/Navbar";
 import BOX from "Components/Body/Side_boxd/Sideboxd";
-import HomePage from "./HomePage";
+import Deck from "./deck";
 import "./decks.css";
 function decks() {
   return (
     <div className="bodywrapper">
       <Navbar />
       <div className="bigbox">
-        <HomePage />
+        <Deck />
 
         {/* <Decks /> */}
         {/* <div className="Grid">
