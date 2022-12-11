@@ -8,7 +8,7 @@ export default function Login() {
   const passwordRef = useRef();
   const { login } = useAuth();
   const [error, setError] = useState("");
-  const [loading, setloading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
@@ -17,13 +17,13 @@ export default function Login() {
 
     try {
       setError("");
-      setloading(true);
+      setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
       navigate("/");
     } catch {
       setError("Failed to log in");
     }
-    setloading(false);
+    setLoading(false);
   }
 
   return (
@@ -41,7 +41,7 @@ export default function Login() {
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" ref={passwordRef} required />
             </Form.Group>
-            <Button disable={loading} className="w-100" type="submit">
+            <Button disabled={loading} className="w-100" type="submit">
               {" "}
               Log In
             </Button>

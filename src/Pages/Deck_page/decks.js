@@ -1,13 +1,17 @@
 import { Link } from "react-router-dom";
 import Navbar from "Components/Header/Navbar/Navbar";
 import BOX from "Components/Body/Side_boxd/Sideboxd";
+import HomePage from "./HomePage";
 import "./decks.css";
 function decks() {
   return (
     <div className="bodywrapper">
       <Navbar />
       <div className="bigbox">
-        <div className="Grid">
+        <HomePage />
+
+        {/* <Decks /> */}
+        {/* <div className="Grid">
           <p className="innner">
             <Link to="/flashcard_page" className="decks">
               Deck 1
@@ -19,7 +23,7 @@ function decks() {
           <p className="innner">Deck 5</p>
           <p className="innner">Deck 6</p>
           <p className="innner">Deck 7</p>
-        </div>
+        </div> */}
       </div>
       <BOX className="deckbox" />
     </div>
