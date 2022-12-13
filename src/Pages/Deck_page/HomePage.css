@@ -5,25 +5,34 @@
   display: flex;
   justify-content: center;
   width: 100%;
+  background-color: white;
 }
 
 .home-page-title {
   font-size: 36px;
   font-weight: bold;
+    background-color: white;
+
 }
 
 .selected-deck-title {
   font-size: 24px;
+    background-color: white;
+
 }
 
 .sidebar-block {
   width: 400px;
+    background-color: white;
+
 }
 
 .quiz-section {
   display: flex;
   flex-direction: row;
   align-items: center;
+    background-color: white;
+
 }
 
 .change-question-button {
