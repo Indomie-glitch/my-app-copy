@@ -1,9 +1,32 @@
 import { useState, useEffect } from "react";
 import HomePage from "./HomePage";
-// import SideBar from "./containers/SideBar";
+import SideBar from "./SideBar";
 // import { initialDecks } from "./InitialData/InitialDecks";
 
-function deck() {
+const initialDecks = [
+  {
+    id: 0,
+    data: { name: "I'm no math magician or anything" },
+    content: [
+      { front: "2+2", back: "4" },
+      {
+        front: "What is the pythagorean theorem?",
+        back: "Sounds like it's just a theory to me!",
+      },
+      {
+        front: "What is math?",
+        back: "Well that's just like, your opinion, man.",
+      },
+      {
+        front:
+          "How many flaps per second for a 5 ounce swallow to carry a 1 pound coconut?",
+        back: "An african swallow, or a European swallow?! ",
+      },
+    ],
+  },
+];
+
+function Deck() {
   const [userDecks, setUserDecks] = useState([]);
   const [selectedDeck, setSelectedDeck] = useState({});
   const [addQuestionsView, setAddQuestionsView] = useState(false);
@@ -12,16 +35,16 @@ function deck() {
   const [cardSide, setCardSide] = useState("front");
   const [knowItCards, setKnowItCards] = useState([]);
   const [dontKnowItCards, setDontKnowItCards] = useState([]);
-  const [level, setLevel] = useState(1)
+  const [level, setLevel] = useState(1);
 
   // retrieves persisted decks through local storage
 
   //fetchfromfirebase
-  const fetchUserDecks = async() => {
-    // const fetchfromfirebase = await axios.get(firebaselink)
+  // const fetchUserDecks = async() => {
+  //   // const fetchfromfirebase = await axios.get(firebaselink)
 
-    setUserDecks(fetchfromfirebase)
-  }
+  //   setUserDecks(fetchfromfirebase)
+  // }
 
   useEffect(() => {
     const data = localStorage.getItem("deck-list");
@@ -43,14 +66,19 @@ function deck() {
       id: userDecks.length,
       data: { name: "Click title area to name your new deck" },
       content: [],
-      level : 1
+      level: 1,
     };
     setUserDecks([...userDecks, newDeck]);
   };
 
   // Creates a new card, and adds it to the selected deck
   const addCard = () => {
-    const newCard = { front: "Front Side", back: "Back Side", answer : '4', options : '1,2,3,4' };
+    const newCard = {
+      front: "Front Side",
+      back: "Back Side",
+      answer: "4",
+      options: "1,2,3,4",
+    };
     const newCardList = [...selectedDeck.content, newCard];
     const index = selectedDeck.id;
 
@@ -67,7 +95,7 @@ function deck() {
     newDecks
       .filter((deck) => deck.id !== selectedDeck.id)
       .splice(index, 1, updatedDeckData);
-  //addingtofirebase
+    //addingtofirebase
     setUserDecks(newDecks);
   };
 
@@ -93,8 +121,23 @@ function deck() {
   };
 
   //Updates the selected card to user inputs
-  const updateCard = async({index, front, back, answer, options, question, wrongAnswer}) => {
-    const newCardData = { front: front, back: back, answer, options, question, wrongAnswer };
+  const updateCard = async ({
+    index,
+    front,
+    back,
+    answer,
+    options,
+    question,
+    wrongAnswer,
+  }) => {
+    const newCardData = {
+      front: front,
+      back: back,
+      answer,
+      options,
+      question,
+      wrongAnswer,
+    };
 
     const cardList = [...selectedDeck.content];
     cardList.splice(index, 1, newCardData);
@@ -109,9 +152,9 @@ function deck() {
     const newDecks = [...userDecks];
 
     newDecks.splice(selectedDeck.id, 1, newSelectedDeckData);
-    const updateToFirebase = () => {
-      response = axios.post('firebaseurl', newDecks)
-    }
+    // const updateToFirebase = () => {
+    //   response = axios.post('firebaseurl', newDecks)
+    // }
 
     setUserDecks(newDecks);
   };
@@ -165,10 +208,4 @@ function deck() {
   );
 }
 
-export default deck;
-
-// app -> 
-// homepage -> can access app
-// components -> can access homepage, app
-// 
-// 
+export default Deck;

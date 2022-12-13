@@ -41,7 +41,7 @@ function Calendars() {
 
   return (
     <div className="App">
-      {/* <div>
+      <div>
         <input
           type="text"
           placeholder="Add Title"
@@ -63,7 +63,7 @@ function Calendars() {
         <button stlye={{ marginTop: "10px" }} onClick={handleAddEvent}>
           Add Event
         </button>
-      </div> */}
+      </div>
       <Calendar
         localizer={localizer}
         events={allEvents}
