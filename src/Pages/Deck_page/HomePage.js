@@ -3,7 +3,7 @@ import { BsCaretLeftFill, BsFillCaretRightFill } from "react-icons/bs";
 import { FaRegSmileBeam, FaRegFrown } from "react-icons/fa";
 import "./HomePage.css";
 import { useState } from "react";
-import { getDatabase, ref, set } from "firebase/database";
+
 
 
 export default function HomePage({
@@ -18,15 +18,8 @@ export default function HomePage({
   dontKnowItCards,
   setDontKnowItCards,
   updateCard,
+  writeUserData,
 }) {
-function writeUserData(userId, name, email, imageUrl) {
-  const db = getDatabase();
-  set(ref(db, "users/" + userId), {
-    username: name,
-    email: email,
-    profile_picture: imageUrl,
-  });
-} 
   console.log(selectedDeck.content, "this is deck content");
   const [theirAnswer, setTheirAnswer] = useState("");
   const [wrongAnswer, setWrongAnswer] = useState(0);
@@ -59,7 +52,7 @@ function writeUserData(userId, name, email, imageUrl) {
           <p>Select a deck to get started!</p>
           <button
             onClick={() => {
-              writeUserData("123", "arnav", "asdf@asdf.com", "");
+              writeUserData();
             }}
           ></button>
         </div>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import HomePage from "./HomePage";
 import SideBar from "./SideBar";
+import { getDatabase, ref, set } from "firebase/database";
 // import { initialDecks } from "./InitialData/InitialDecks";
 
 const initialDecks = [
@@ -45,6 +46,13 @@ function Deck() {
 
   //   setUserDecks(fetchfromfirebase)
   // }
+  function writeUserData() {
+    const db = getDatabase();
+    set(ref(db, "deck/" + 1), {
+      decks: userDecks,
+    });
+  } 
+
 
   useEffect(() => {
     const data = localStorage.getItem("deck-list");
@@ -203,6 +211,7 @@ function Deck() {
         dontKnowItCards={dontKnowItCards}
         setDontKnowItCards={setDontKnowItCards}
         updateCard={updateCard}
+        writeUserData={writeUserData}
       />
     </div>
   );
