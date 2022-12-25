@@ -4,8 +4,6 @@ import { FaRegSmileBeam, FaRegFrown } from "react-icons/fa";
 import "./HomePage.css";
 import { useState } from "react";
 
-
-
 export default function HomePage({
   quizMode,
   selectedDeck,
@@ -18,7 +16,8 @@ export default function HomePage({
   dontKnowItCards,
   setDontKnowItCards,
   updateCard,
-  writeUserData,
+  createDeckData,
+  deleteDeckData
 }) {
   console.log(selectedDeck.content, "this is deck content");
   const [theirAnswer, setTheirAnswer] = useState("");
@@ -52,9 +51,14 @@ export default function HomePage({
           <p>Select a deck to get started!</p>
           <button
             onClick={() => {
-              writeUserData();
+              createDeckData();
             }}
-          ></button>
+          >Save</button>
+          <button
+            onClick={() => {
+              deleteDeckData();
+            }}
+          >delete</button>
         </div>
       ) : (
         <div>

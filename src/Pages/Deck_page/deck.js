@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import HomePage from "./HomePage";
 import SideBar from "./SideBar";
-import { getDatabase, ref, set } from "firebase/database";
+import { getDatabase, ref, remove, set, get,child } from "firebase/database";
 // import { initialDecks } from "./InitialData/InitialDecks";
 
 const initialDecks = [
@@ -46,21 +46,41 @@ function Deck() {
 
   //   setUserDecks(fetchfromfirebase)
   // }
-  function writeUserData() {
+  function createDeckData() {
+    console.log(userDecks)
     const db = getDatabase();
     set(ref(db, "deck/" + 1), {
       decks: userDecks,
     });
   } 
 
+  function deleteDeckData(){
+    const db = getDatabase()
+    remove(ref(db, 'deck/' + 1)).then(
+      () => {
+        setUserDecks([])
+      setSelectedDeck([])
+      setAddQuestionsView(false)
+      }
+    )
+  }
+
+  const fetchDecks = () => {
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `deck/1`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        setUserDecks(snapshot.val().decks)
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
+
 
   useEffect(() => {
-    const data = localStorage.getItem("deck-list");
-    if (data) {
-      setUserDecks(JSON.parse(data));
-    } else {
-      setUserDecks(initialDecks);
-    }
+    fetchDecks()
   }, []);
 
   // persists decks to local storage
@@ -136,7 +156,7 @@ function Deck() {
     answer,
     options,
     question,
-    wrongAnswer,
+    wrongAnswer = 0,
   }) => {
     const newCardData = {
       front: front,
@@ -211,7 +231,9 @@ function Deck() {
         dontKnowItCards={dontKnowItCards}
         setDontKnowItCards={setDontKnowItCards}
         updateCard={updateCard}
-        writeUserData={writeUserData}
+        createDeckData={createDeckData}
+        deleteDeckData={deleteDeckData}
+        fetchDecks= {fetchDecks}
       />
     </div>
   );
