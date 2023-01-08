@@ -4,6 +4,8 @@ import { FaRegSmileBeam, FaRegFrown } from "react-icons/fa";
 import "./HomePage.css";
 import { useState } from "react";
 
+
+
 export default function HomePage({
   quizMode,
   selectedDeck,
@@ -16,10 +18,10 @@ export default function HomePage({
   dontKnowItCards,
   setDontKnowItCards,
   updateCard,
-  createDeckData,
-  deleteDeckData
+  writeUserData,
+  submitDeck,
+  userDecks
 }) {
-  console.log(selectedDeck.content, "this is deck content");
   const [theirAnswer, setTheirAnswer] = useState("");
   const [wrongAnswer, setWrongAnswer] = useState(0);
   // Increments the question number to display the next card's front side
@@ -49,16 +51,7 @@ export default function HomePage({
         <div>
           <h1 className="home-page-title">Home Page</h1>
           <p>Select a deck to get started!</p>
-          <button
-            onClick={() => {
-              createDeckData();
-            }}
-          >Save</button>
-          <button
-            onClick={() => {
-              deleteDeckData();
-            }}
-          >delete</button>
+          
         </div>
       ) : (
         <div>
@@ -71,7 +64,10 @@ export default function HomePage({
             <div disabled>
               <BsCaretLeftFill
                 className="change-question-button"
-                onClick={decrementQuestionNumber}
+                onClick={() => {
+                  submitDeck(userDecks)
+                  decrementQuestionNumber()
+                }}
               />
             </div>
             <QuizCard
@@ -86,7 +82,10 @@ export default function HomePage({
             />
             <BsFillCaretRightFill
               className="change-question-button"
-              onClick={incrementQuestionNumber}
+              onClick={() => {
+                submitDeck(userDecks)
+                incrementQuestionNumber()
+              }}
             />
           </div>
           <div className="know-it-button-section">
@@ -99,48 +98,21 @@ export default function HomePage({
                       className="know-it-button"
                       key={index}
                       onClick={() => {
+                        if(item === selectedDeck.content[questionNumber].answer){
+                          setTheirAnswer(item);
+                          submitDeck(userDecks)
+                        }
                         setTheirAnswer(item);
                         setWrongAnswer((prev) => prev + 1);
-                        updateCard([
-                          ...selectedDeck.content,
-                          (selectedDeck.content[questionNumber].wrongAnswer =
-                            wrongAnswer),
-                        ]);
                       }}
                     >
                       {item}
                     </button>
                   );
                 })}
-
-            <button
-              className="know-it-button"
-              onClick={() =>
-                setKnowItCards([
-                  ...knowItCards,
-                  selectedDeck.content[questionNumber],
-                ])
-              }
-            >
-              <FaRegSmileBeam />I know it
-            </button>
-            <button
-              className="know-it-button"
-              onClick={() =>
-                setDontKnowItCards([
-                  ...dontKnowItCards,
-                  selectedDeck.content[questionNumber],
-                ])
-              }
-            >
-              <FaRegFrown />I don't know it
-            </button>
           </div>
         </div>
       )}
     </div>
   );
 }
-
-// const array = [1,2,3,4,5]
-const array = [1];

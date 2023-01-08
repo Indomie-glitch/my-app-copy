@@ -1,23 +1,23 @@
- .nav { 
-  background-color: #0C2D48;
+.nav {
+  background-color: #0c2d48;
   height: 770px;
-  width: 100px;
+  width: 85px;
   border: 1px solid black;
   margin: 10px;
   border-radius: 10px;
 }
-.insidenav{
-  float:left;
-  display:block;
+.insidenav {
+  float: left;
+  display: block;
   text-align: center;
   padding: 25px 16px;
   text-decoration: none;
   font-size: 17px;
-  color: #B1D4E0;
+  color: #b1d4e0;
 }
 
 .nav2 {
-  background-color: #0C2D48;
+  background-color: #0c2d48;
   height: 50px;
   width: 1425px;
   border: 1px solid black;
@@ -25,14 +25,17 @@
   border-radius: 10px;
 }
 
-.insidenav2{
-  float:right;
-  display:block;
+.insidenav2 {
+  float: right;
+  display: block;
   text-align: center;
   padding: 25px 16px;
   text-decoration: none;
   font-size: 17px;
-  color: #B1D4E0;
+  color: #b1d4e0;
 }
 
-
+.logout-custom {
+  background-color: #0c2d48;
+  color: #b1d4e0 !important;
+}

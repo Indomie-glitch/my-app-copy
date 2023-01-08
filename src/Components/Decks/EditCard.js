@@ -62,7 +62,7 @@ export default function EditCard({
         <button
           onClick={() => {
             setEditCard(false);
-            updateCard({index: cardNumber, front: cardFront, back: cardBack, answer,question, options} );
+            updateCard({index: cardNumber, front: cardFront, back: cardBack, answer,question, options, wrongAnswer : 0} );
           }}
         >
           Save

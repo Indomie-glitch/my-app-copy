@@ -1,8 +1,16 @@
-import Navbar from "Components/Header/Navbar/Navbar";
-import BOX from "Pages/Home_page/Side_box/Sideboxh";
-import "./Home.css";
-import Calendar from "Components/Body/calendar/calendar";
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Navbar from 'Components/Header/Navbar/Navbar';
+import './Home.css';
+import Calendar from 'Components/Body/calendar/calendar';
 function Home() {
+  const userId = localStorage.getItem('userId');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!userId) return navigate('/login');
+  }, []);
+
   return (
     <div className="bodywrapper">
       <Navbar />
@@ -13,7 +21,6 @@ function Home() {
           </div>
         </div>
       </div>
-      <BOX />
     </div>
   );
 }

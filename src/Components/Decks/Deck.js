@@ -13,8 +13,10 @@ export default function Deck({
   setQuizMode,
   setQuestionNumber,
   setCardSide,
+  localUserDecks,
+  setLocalUserDecks
 }) {
-  const [deckTitle, setDeckTitle] = useState(deck.data.name);
+  const [deckTitle, setDeckTitle] = useState(localUserDecks.data.name);
   const [changingName, setChangingName] = useState(false);
 
   //sets ability to edit deck title
@@ -30,7 +32,7 @@ export default function Deck({
   //handles title submit and updates state of userDecks
   const titleSubmit = () => {
     setChangingName(false);
-    const filteredDecks = userDecks.filter(
+    const filteredDecks = localUserDecks.filter(
       (userDeck) => userDeck.id !== deck.id
     );
     const newDeckData = {
@@ -38,9 +40,10 @@ export default function Deck({
       data: { name: deckTitle },
       content: deck.content,
     };
-    const index = newDeckData.id;
-    filteredDecks.splice(index, 0, newDeckData);
-    setUserDecks(filteredDecks);
+
+  
+    setLocalUserDecks(filteredDecks)
+    // setUserDecks(filteredDecks);
   };
 
   return (
@@ -66,7 +69,7 @@ export default function Deck({
         className="add-cards-button"
         onClick={() => {
           setCardSide("front");
-          setSelectedDeck(deck);
+          setSelectedDeck(deck.id);
           setAddQuestionsView(true);
         }}
       >
@@ -77,7 +80,7 @@ export default function Deck({
         <GoTrashcan
           className="remove-deck-button"
           onClick={() => {
-            removeDeck(deck);
+            removeDeck(deck.id);
             setQuizMode(false);
           }}
         />
@@ -86,7 +89,7 @@ export default function Deck({
           onClick={() => {
             setQuestionNumber(0);
             setCardSide("front");
-            setSelectedDeck(deck);
+            setSelectedDeck(deck.id);
             setQuizMode(true);
           }}
         />

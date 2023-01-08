@@ -14,7 +14,6 @@ export default function QuizCard({
     selectedDeck.content[questionNumber]
   );
 
-  console.log(theirAnswer)
 
   useEffect(() => {
     setCardSide("front");

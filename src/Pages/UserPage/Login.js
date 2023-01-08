@@ -1,27 +1,32 @@
-import React, { useRef, useState } from "react";
-import { Form, Button, Card, Alert } from "react-bootstrap";
-import { useAuth } from "./contexts/AuthContext";
-import { Link, useNavigate } from "react-router-dom"
+import React, { useRef, useState } from 'react';
+import { Form, Button, Card, Alert } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
+import useAuthentication from './auth.hook';
+import './Login.css';
+import { AiFillGoogleCircle } from 'react-icons/ai';
 
 export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { login } = useAuth();
-  const [error, setError] = useState("");
+  const { login, googleLogin } = useAuthentication();
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const setCredentialToLocalStorage = id => {
+    localStorage.setItem('userId', id);
+  };
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-
     try {
-      setError("");
+      setError('');
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
-      navigate("/");
     } catch {
-      setError("Failed to log in");
+      console.log('run?');
+      setError('Failed to log in');
     }
     setLoading(false);
   }
@@ -42,9 +47,17 @@ export default function Login() {
               <Form.Control type="password" ref={passwordRef} required />
             </Form.Group>
             <Button disabled={loading} className="w-100" type="submit">
-              {" "}
+              {' '}
               Log In
             </Button>
+
+            <div
+              className="button-login-google"
+              type="button"
+              onClick={googleLogin}>
+              <AiFillGoogleCircle />
+              <button type="button">Sign In With Google</button>
+            </div>
           </Form>
         </Card.Body>
       </Card>

@@ -5,7 +5,6 @@ import { AuthProvider } from "./contexts/AuthContext";
 
 function Logup() {
   return (
-    <AuthProvider>
       <Container
         className="d-flex align-items-center justify-content-center"
         style={{ minHeight: "100vh" }}
@@ -14,7 +13,6 @@ function Logup() {
           <Login />
         </div>
       </Container>
-    </AuthProvider>
   );
 }
 

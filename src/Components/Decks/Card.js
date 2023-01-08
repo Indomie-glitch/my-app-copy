@@ -12,7 +12,6 @@ export default function Card({
   setCardSide,
 }) {
   const [editCard, setEditCard] = useState(false);
-  console.log(currentCard)
 
   // toggles card view or card edit mode
   const editToggle = () => {

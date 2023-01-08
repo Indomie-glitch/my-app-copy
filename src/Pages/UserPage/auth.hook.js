@@ -7,71 +7,62 @@ import {
   signOut,
 } from 'firebase/auth';
 import { signInWithEmailAndPassword, GoogleAuthProvider } from 'firebase/auth';
+import { auth, database } from '../../firebase';
 
-import { auth, database } from '../../../firebase';
-
-const AuthContext = React.createContext();
-
-export function useAuth() {
-  return useContext(AuthContext);
-}
-
-export function AuthProvider({ children }) {
+const useAuthentication = () => {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const googleProvider = new GoogleAuthProvider();
 
-  function signup(email, password) {
+  const signUp = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
-  }
+  };
 
-  function login(email, password) {
-    return signInWithEmailAndPassword(auth, email, password);
-  }
+ const login = (email, password) => {
+   return signInWithEmailAndPassword(auth, email, password).then(response => {
+     const userId = response.user.id;
+     localStorage.setItem('userId', userId);
+     navigate('/home');
+   });
+ };
 
   const googleLogin = () => {
     return signInWithPopup(auth, googleProvider).then(response => {
-      console.log('run');
       const userId = response.user.uid;
       localStorage.setItem('userId', userId);
-
-      navigate('/decks');
+      navigate('/home');
     });
   };
 
   const logOut = () => {
-    console.log('run');
     return signOut(auth).then(() => {
       localStorage.removeItem('userId');
-      navigate('/signin');
+      navigate('/login');
     });
   };
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      setCurrentUser(user);
-      setLoading(false);
-    });
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged(user => {
+  //     setCurrentUser(user);
+  //     setLoading(false);
+  //   });
 
-    return unsubscribe;
-  }, []);
+  //   return unsubscribe;
+  // }, []);
 
-  auth.onAuthStateChanged(user => {
-    setCurrentUser(user);
-  });
+  // auth.onAuthStateChanged(user => {
+  //   setCurrentUser(user);
+  // });
 
-  const value = {
+  return {
     currentUser,
     login,
-    signup,
+    signUp,
     googleLogin,
     logOut,
   };
-  return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
-    </AuthContext.Provider>
-  );
-}
+};
+
+export default useAuthentication;
