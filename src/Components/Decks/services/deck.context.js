@@ -140,6 +140,7 @@ console.log(userDecks);
   };
 
   const updateCard = (currentCard, cardId) => {
+    console.log("updateCard")
     const currentDeckIndex = userDecks.findIndex(
       item => item.id === selectedDeckId,
     );
